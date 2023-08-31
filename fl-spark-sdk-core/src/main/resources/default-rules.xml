@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <abilities>
+        <hbase>
+            <zk-quorum>	10.1.2.182,10.1.2.135,10.1.2.199</zk-quorum>
+            <zk-port>2181</zk-port>
+            <client-timeout>600000</client-timeout>
+            <rpc-timeout>600000</rpc-timeout>
+            <auto-logged>false</auto-logged>
+        </hbase>
+        <kafka>
+            <bootstrap>10.1.2.138:9092,10.1.2.199:9092,10.1.2.216:9092</bootstrap>
+            <key-serializer>org.apache.kafka.common.serialization.StringSerializer</key-serializer>
+            <value-serializer>org.apache.kafka.common.serialization.StringSerializer</value-serializer>
+            <ack>-1</ack>
+        </kafka>
+        <mongo>
+            <host>127.0.0.1</host>
+            <port>27017</port>
+            <user></user>
+            <pass></pass>
+            <database>scs</database>
+            <default-collection>my_task</default-collection>
+        </mongo>
+        <rdb>
+            <config>
+                <type>EXTERNAL</type>
+                <url>jdbc:mysql://127.0.0.1:3306/scs</url>
+                <user>root</user>
+                <pass>root</pass>
+                <query-sql>SELECT id, name, status, ip, port, db_type, db_name, char_set, user_name, password FROM scs.scs_data_endpoint</query-sql>
+            </config>
+        </rdb>
+        <aspect>
+            <final-state>
+                <topic-name>sdk_final_state</topic-name>
+            </final-state>
+            <level2-index>
+                <type>elasticsearch</type>
+                <es>
+                    <node>10.1.2.193</node>
+                    <port>9200</port>
+                    <auth>
+                        <username>elastic</username>
+                        <password>skyman123</password>
+                    </auth>
+                </es>
+            </level2-index>
+        </aspect>
+
+    </abilities>
+
+</configuration>
