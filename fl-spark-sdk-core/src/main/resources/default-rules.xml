@@ -22,6 +22,11 @@
             <database>scs</database>
             <default-collection>my_task</default-collection>
         </mongo>
+        <neo4j>
+            <host>10.1.3.214:30080</host>
+            <user>neo4j</user>
+            <pass>skyman123456</pass>
+        </neo4j>
         <rdb>
             <config>
                 <type>EXTERNAL</type>
