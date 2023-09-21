@@ -1,5 +1,6 @@
 package org.fasteam.sdk.it.streaming;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.ImmutableMap;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.sql.*;
@@ -36,10 +37,16 @@ public class Sink2Hbase extends SparkUserDefineApplication {
                 DataTypes.createStructField("age",DataTypes.StringType,true),
                 DataTypes.createStructField("value",DataTypes.StringType,true)));
         StructType targetSchema = DataTypes.createStructType(Arrays.asList(DataTypes.createStructField("value",DataTypes.StringType,true)));
+        JSONObject timestamp = new JSONObject();
+        timestamp.put("0",1694490871000L);
+        timestamp.put("1",1694490871000L);
+        JSONObject topic = new JSONObject();
+        topic.put("kafka_test_ods",timestamp);
         KafkaEnvironmentContext kafkaEnvironmentContext = (KafkaEnvironmentContext)EnvironmentContextFactory.get(KafkaEnvironmentContext.class);
         Dataset<Row> ds = SparkProcessor.getSession().readStream().format("kafka")
                 .option("kafka.bootstrap.servers",kafkaEnvironmentContext.getBootstrap())
                 .option("subscribe","kafka_test_ods")
+                .option("startingOffsetsByTimestamp",topic.toJSONString())
                 .load();
         ds = ds.selectExpr("CAST(value AS STRING) as dl_json");
         ds = ds.select(functions.from_json(ds.col("dl_json"),schema).as("dl_data")).select("dl_data.*");
@@ -56,8 +63,8 @@ public class Sink2Hbase extends SparkUserDefineApplication {
         //还需要写kafka
         ds.writeStream().format("kafka")
                 .option("kafka.bootstrap.servers",kafkaEnvironmentContext.getBootstrap())
-                .option("topic","sink_test_dwd")
-                .option("checkpointLocation","/checkpoint")
+                .option("topic","sink_test_dws")
+                .option("checkpointLocation","/checkpoint1")
                 .start();
         SparkProcessor.getSession().streams().awaitAnyTermination();
     }

@@ -2,7 +2,6 @@ package org.fasteam.neo4j.entry;
 
 import lombok.SneakyThrows;
 import org.apache.spark.sql.DataFrameReader;
-import org.apache.spark.sql.streaming.DataStreamReader;
 import org.fasteam.sdk.core.EnvironmentContext;
 import org.fasteam.sdk.core.SparkProcessor;
 import org.fasteam.sdk.core.conf.Config;

@@ -14,6 +14,11 @@
             <value-serializer>org.apache.kafka.common.serialization.StringSerializer</value-serializer>
             <ack>-1</ack>
         </kafka>
+        <doris>
+            <fenodes>10.1.2.222:8030</fenodes>
+            <user>root</user>
+            <pass></pass>
+        </doris>
         <mongo>
             <host>127.0.0.1</host>
             <port>27017</port>

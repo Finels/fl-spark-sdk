@@ -20,6 +20,7 @@
         <module>mongo</module>
         <module>streaming</module>
         <module>neo4j</module>
+        <module>doris</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -46,6 +47,11 @@
             <dependency>
                 <groupId>org.fasteam.sdk.abilities</groupId>
                 <artifactId>neo4j</artifactId>
+                <version>${reversion}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.fasteam.sdk.abilities</groupId>
+                <artifactId>doris</artifactId>
                 <version>${reversion}</version>
             </dependency>
             <dependency>

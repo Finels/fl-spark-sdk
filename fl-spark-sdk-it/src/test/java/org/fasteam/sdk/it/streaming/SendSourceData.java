@@ -27,7 +27,8 @@ public class SendSourceData extends SparkUserDefineApplication {
             data.put("value","1");
             data.put("name","james");
             data.put("age","666");
-            producer.send(new ProducerRecord<>("kafka_test_ods", data.toJSONString()));
+            producer.send(new ProducerRecord<>("kafka_test_ods",null, data.toJSONString()));
+            producer.send(new ProducerRecord<>("kafka_test_ods",null, data.toJSONString()));
         }catch (Exception ignored){
             SparkProcessor.doThrow(ignored);
         }
