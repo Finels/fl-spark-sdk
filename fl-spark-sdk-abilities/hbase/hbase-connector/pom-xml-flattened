@@ -396,14 +396,14 @@
                 <configuration>
                   <argLine>-Xmx1536m -XX:ReservedCodeCacheSize=512m</argLine>
                   <parallel>false</parallel>
-                  <reportsDirectory>D:\AliyunCode\pre-opensource\fl-spark-sdk\fl-spark-sdk-abilities\hbase\hbase-connector\target/surefire-reports</reportsDirectory>
+                  <reportsDirectory>D:\fasteam\fl-spark-sdk\fl-spark-sdk-abilities\hbase\hbase-connector\target/surefire-reports</reportsDirectory>
                   <junitxml>.</junitxml>
                   <filereports>WDF TestSuite.txt</filereports>
                 </configuration>
               </execution>
             </executions>
             <configuration>
-              <reportsDirectory>D:\AliyunCode\pre-opensource\fl-spark-sdk\fl-spark-sdk-abilities\hbase\hbase-connector\target/surefire-reports</reportsDirectory>
+              <reportsDirectory>D:\fasteam\fl-spark-sdk\fl-spark-sdk-abilities\hbase\hbase-connector\target/surefire-reports</reportsDirectory>
               <junitxml>.</junitxml>
               <filereports>WDF TestSuite.txt</filereports>
               <parallel>false</parallel>

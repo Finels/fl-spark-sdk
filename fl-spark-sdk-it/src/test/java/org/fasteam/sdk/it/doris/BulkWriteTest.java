@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SaveMode;
 import org.fasteam.doris.entry.Doris;
 import org.fasteam.sdk.core.RuntimeContext;
 import org.fasteam.sdk.core.SparkProcessor;
@@ -24,9 +25,9 @@ public class BulkWriteTest extends SparkUserDefineApplication {
     public void process(RuntimeContext argsContext) throws Exception {
         Calendar ca = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        for(int s=0;s<1024;s++) {
+        for(int s=0;s<1000;s++) {
             List<DataBean> lst = new ArrayList<>();
-            for (int i = 0; i < 500 * 1024; i++) {
+            for (int i = 0; i < 500 * 1000; i++) {
                 DataBean put = new DataBean();
                 //一条数据10个字段
                 put.setFactory_id("10100"+new Random().nextInt(10));
@@ -44,7 +45,7 @@ public class BulkWriteTest extends SparkUserDefineApplication {
             Dataset<Row> ds = SparkProcessor.getSession().createDataFrame(lst,DataBean.class);
             ds = ds.selectExpr("factory_id","level","shift","product","serial_num","pass_time","pass","check","create_time","create_user");
             ds.printSchema();
-            Doris.write(ds,"scs.bigdata_partition_test");
+            Doris.write(ds,"scs","scs.view_test1", SaveMode.Overwrite);
             System.out.println("完成"+(s+1)+"次插入");
             ca.add(Calendar.DAY_OF_MONTH,new Random().nextInt(1));
         }

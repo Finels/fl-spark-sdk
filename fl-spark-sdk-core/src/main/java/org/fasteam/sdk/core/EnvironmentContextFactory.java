@@ -16,7 +16,7 @@ public class EnvironmentContextFactory {
     private static final LinkedHashMap<Class<? extends EnvironmentContext>,EnvironmentContext> contexts = new LinkedHashMap<>();
 
     static {
-        Set<Class<? extends EnvironmentContext>> subCls =  new Reflections("org.fasteam").getSubTypesOf(EnvironmentContext.class);
+        Set<Class<? extends EnvironmentContext>> subCls = new Reflections("org.fasteam").getSubTypesOf(EnvironmentContext.class);
         subCls.forEach(subCl->{
             try {
                 contexts.put(subCl,subCl.newInstance());

@@ -18,7 +18,7 @@ public class Neo4jTest {
     @DisplayName("标签读取测试")
     @Test
     public void test1() throws Exception {
-        String args = "{\"runClass\":\"org.fasteam.sdk.it.neo4j.ReadTest\",\"appName\":\"ReadTest\",\"master\":\"local[*]\",\"confLocate\":\"local\"}";
+        String args = "{\"runClass\":\"org.fasteam.sdk.it.neo4j.EtlGraphLoadTest\",\"appName\":\"ReadTest\",\"master\":\"local[*]\",\"confLocate\":\"local\"}";
         String params = Base64.getEncoder().encodeToString(args.getBytes(StandardCharsets.UTF_8));
         SparkProcessor.main(new String[]{params});
     }

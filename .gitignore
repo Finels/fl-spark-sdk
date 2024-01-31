@@ -21,6 +21,7 @@ logs/
 *.iws
 *.iml
 *.ipr
+pom-xml-flattened
 
 ### NetBeans ###
 /nbproject/private/
