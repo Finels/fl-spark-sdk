@@ -121,10 +121,11 @@ public class Mysql {
     /**
      * 直接使用dataset写入，无法使用在海量数据
      **/
-    protected static void commonDatasetWriteBatch(String dbUrl, String dbUser, String dbPassword, String tableName, Dataset<Row> insertData, SaveMode saveMode) {
+    protected static void commonDatasetWriteBatch(String dbUrl, String dbUser, String dbPassword, String tableName, Dataset<Row> insertData, SaveMode saveMode,Boolean isTruncate) {
         Properties connectionProperties = new Properties();
         connectionProperties.put("user", dbUser);
         connectionProperties.put("password", dbPassword);
+        connectionProperties.put("truncate", isTruncate.toString());
         insertData.write().mode(saveMode).jdbc(dbUrl, tableName, connectionProperties);
     }
 
@@ -142,7 +143,22 @@ public class Mysql {
         if (env == null) {
             throw new Exception("未找到数据库连接配置信息");
         }
-        commonDatasetWriteBatch(env.getUrl(), env.getUser(), env.getPass(), tableName, insertData, saveMode);
-
+        commonDatasetWriteBatch(env.getUrl(), env.getUser(), env.getPass(), tableName, insertData, saveMode,false);
+    }
+    /**
+     *
+     * @param dbCode dbCode配置由NACOS中的[RDB_CONNECTION_PREFIX]配置项对应的DB配置表位置决定
+     * @param tableName 目标db表名
+     * @param insertData 待插入的dataset
+     * @param saveMode 保存模式,APPEND或者OVERWRITE,注意 overwrite会覆盖掉原来目标表的表结构，一些索引和字段类型会被覆盖/删除
+     * @param isTruncate 为true时，保存模式OVERWRITE时，是否清空目标表数据，不影响表结构
+     * @throws Exception
+     */
+    public static void commonDatasetWriteBatch(String dbCode, String tableName, Dataset<Row> insertData, SaveMode saveMode,Boolean isTruncate) throws Exception {
+        RdbConnection env = ((RdbEnvironmentContext) EnvironmentContextFactory.get(RdbEnvironmentContext.class)).getRdbConnection(dbCode);
+        if (env == null) {
+            throw new Exception("未找到数据库连接配置信息");
+        }
+        commonDatasetWriteBatch(env.getUrl(), env.getUser(), env.getPass(), tableName, insertData, saveMode,isTruncate);
     }
 }
