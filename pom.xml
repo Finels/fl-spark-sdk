@@ -18,7 +18,7 @@
     <hbase.version>2.4.16</hbase.version>
     <spark.version>3.1.2</spark.version>
     <!-- for doris connector version-->
-    <doris.connector.version>1.2.0</doris.connector.version>
+    <doris.connector.version>1.3.2</doris.connector.version>
     <!-- for rdbms version-->
     <sqlserver.version>7.2.2.jre8</sqlserver.version>
     <postgresql.version>42.2.5</postgresql.version>
