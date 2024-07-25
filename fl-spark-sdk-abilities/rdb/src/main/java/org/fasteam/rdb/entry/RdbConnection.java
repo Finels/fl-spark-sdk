@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
-import java.beans.Transient;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RdbConnection {
+public class RdbConnection implements Serializable {
     private String id;
     private String name;
     private String status;
